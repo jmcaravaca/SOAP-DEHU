@@ -1,0 +1,115 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="TestCode" this:TestCode.in_CertFilePath="CERTIFICADO HESA2024.p12" this:TestCode.in_CertPass="HESA2022" this:TestCode.in_guid="5ECAEDCED0B8AB23DC16958833020499" this:TestCode.in_SoapMessage="soapmess.txt" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_CertFilePath" Type="InArgument(x:String)" />
+    <x:Property Name="in_CertPass" Type="InArgument(x:String)" />
+    <x:Property Name="in_guid" Type="InArgument(x:String)" />
+    <x:Property Name="in_SoapMessage" Type="InArgument(x:String)" />
+    <x:Property Name="out_XMLText" Type="OutArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1124,786</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>TestCode_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Security.Cryptography</x:String>
+      <x:String>System.Security.Cryptography.X509Certificates</x:String>
+      <x:String>System.Security.Cryptography.Xml</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>UiPath.Platform.ResourceHandling</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>SignSoapMessage</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Security.Cryptography.Xml</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>System.Text.Encoding.CodePages</AssemblyReference>
+      <AssemblyReference>SignSoapMessage</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Sign XML Soap Message with Certificate" DisplayName="Sign Soap" sap:VirtualizedContainerService.HintSize="496,602" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="outXML" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="' Load the SOAP message&#xD;&#xA;Dim soapMessage As String = soapmess ' Replace with your SOAP message XML&#xD;&#xA;Dim xmlDoc As New XmlDocument()&#xD;&#xA;xmlDoc.LoadXml(soapMessage)&#xD;&#xA;Console.Writeline(&quot;MessageLoaded&quot;)&#xD;&#xA;' Create an XmlNamespaceManager and add namespaces used in your SOAP  message&#xD;&#xA;Dim nsNamespaceManager As New XmlNamespaceManager(xmlDoc.NameTable)&#xD;&#xA;nsNamespaceManager.AddNamespace(&quot;soapenv&quot;, &quot;http://schemas.xmlsoap.org/soap/envelope/&quot;)&#xD;&#xA;nsNamespaceManager.AddNamespace(&quot;loc&quot;, &quot;http://administracion.gob.es/punto-unico-notificaciones/localiza&quot;)&#xD;&#xA;nsNamespaceManager.AddNamespace(&quot;wsu&quot;, &quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd&quot;)&#xD;&#xA;nsNamespaceManager.AddNamespace(&quot;wsse&quot;, &quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd&quot;)&#xD;&#xA;&#xD;&#xA;Console.Writeline(&quot;Namespaceadded&quot;)&#xD;&#xA;' Load the X.509 certificate&#xD;&#xA;Dim cert As New X509Certificate2(certFilePath, certPass)&#xD;&#xA;Console.Writeline(&quot;X509&quot;)&#xD;&#xA;' Create a SignedXmlWithId object&#xD;&#xA;Dim signedxm As New SignedXmlWithId(xmlDoc)&#xD;&#xA;Console.Writeline(&quot;SignedXMLLoaded&quot;)&#xD;&#xA;' Add the signing key&#xD;&#xA;signedxm.SigningKey = cert.PrivateKey&#xD;&#xA;' Create a reference to the body of the SOAP message&#xD;&#xA;Dim refer As New System.Security.Cryptography.Xml.Reference(&quot;#id-&quot; + guid)&#xD;&#xA;Console.Writeline(&quot;Reference&quot;)&#xD;&#xA;Console.Writeline(refer.Uri)&#xD;&#xA;' Add transforms to the reference&#xD;&#xA;Dim c14n As New System.Security.Cryptography.Xml.XmlDsigExcC14NTransform()&#xD;&#xA;c14n.InclusiveNamespacesPrefixList = &quot;loc&quot;&#xD;&#xA;refer.AddTransform(c14n)&#xD;&#xA;' Add the reference to the SignedXml object&#xD;&#xA;signedxm.AddReference(refer)&#xD;&#xA;' Compute the signature&#xD;&#xA;signedxm.ComputeSignature()&#xD;&#xA;Console.Writeline(&quot;ComputeSign&quot;)&#xD;&#xA;' Get the XML representation of the signature&#xD;&#xA;Dim signature As XmlElement = signedxm.GetXml()&#xD;&#xA;Console.Writeline(&quot;GetXML&quot;)&#xD;&#xA;' No se puede hacer recursive en UIPath, pero sabemos que no vamos a tener más de 3 elementos embebidos&#xD;&#xA;signature.Prefix = &quot;ds&quot;&#xD;&#xA;For Each n1 As XmlNode In signature.ChildNodes&#xD;&#xA;&#x9;n1.Prefix = &quot;ds&quot;&#xD;&#xA;&#x9;For Each n2 As XmlNode In n1.ChildNodes&#xD;&#xA;&#x9;&#x9;n2.Prefix = &quot;ds&quot;&#xD;&#xA;&#x9;&#x9;For Each n3 As XmlNode In n2.ChildNodes&#xD;&#xA;&#x9;&#x9;&#x9;n3.Prefix = &quot;ds&quot;&#xD;&#xA;&#x9;&#x9;Next n3&#x9;&#x9;&#xD;&#xA;&#x9;Next n2&#xD;&#xA;Next n1&#xD;&#xA;signedxm.LoadXml(signature)&#xD;&#xA;signedxm.SignedInfo.References.Clear()&#xD;&#xA;signedxm.ComputeSignature()&#xD;&#xA;Dim recomputedSignature As String = Convert.ToBase64String(signedxm.SignatureValue)&#xD;&#xA;' Replace Signature&#xD;&#xA;Dim nsm As XmlNamespaceManager = New XmlNamespaceManager(signature.OwnerDocument.NameTable)&#xD;&#xA;nsm.AddNamespace(&quot;ds&quot;, SignedXmlWithId.XmlDsigNamespaceUrl)&#xD;&#xA;Dim signatureValue As XmlNode  = signature.SelectSingleNode(&quot;ds:SignatureValue&quot;, nsm)&#xD;&#xA;signatureValue.InnerXml = recomputedSignature&#xD;&#xA;xmlDoc.DocumentElement(&quot;soapenv:Header&quot;).AppendChild(xmlDoc.ImportNode(signature, True))&#xD;&#xA;outXML = xmlDoc.OuterXml&#xD;&#xA;&#xD;&#xA;' Append the signature to the SOAP header&#xD;&#xA;'Dim soapHeader As XmlNode = xmlDoc.SelectSingleNode(&quot;//soapenv:Header&quot;, nsNamespaceManager)&#xD;&#xA;'soapHeader.AppendChild(signatureElement)'&#xD;&#xA;'Console.Writeline(&quot;AppendXML&quot;)&#xD;&#xA;' Save the updated SOAP message&#xD;&#xA;'Dim updatedSoapMessage As String = xmlDoc.OuterXml&#xD;&#xA;'Console.Writeline(&quot;UpdateMessage&quot;)&#xD;&#xA;'Console.WriteLine(updatedSoapMessage)" DisplayName="Invoke Code" sap:VirtualizedContainerService.HintSize="434,165" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+      <ui:InvokeCode.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="soapmess">
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_SoapMessage" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="certFilePath">
+          <Literal x:TypeArguments="x:String">CERTIFICADO HESA2024.p12</Literal>
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="certPass">
+          <Literal x:TypeArguments="x:String">HESA2022</Literal>
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="guid">
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_guid" />
+        </InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="outXML">
+          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="outXML" />
+        </OutArgument>
+      </ui:InvokeCode.Arguments>
+    </ui:InvokeCode>
+    <Assign sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[out_XMLText]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[outXML]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:WriteTextFile File="{x:Null}" DisplayName="Write Text File" FileName="outXML.txt" sap:VirtualizedContainerService.HintSize="434,133" sap2010:WorkflowViewState.IdRef="WriteTextFile_1" Text="[outXML]" />
+  </Sequence>
+</Activity>
